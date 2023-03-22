@@ -1,12 +1,6 @@
-import { BooksDBType, IBook } from './types';
+import { IBook } from '../../../types';
+import { booksDB } from './db';
 import { v4 as uuidv4 } from 'uuid';
-
-const initialDB: BooksDBType[] = [
-  ['id-1', { title: 'Harrty Potter', author: 'Rowling' }],
-  ['id-2', { title: 'Harrty Rob', author: 'Rowling' }],
-];
-
-const booksDB = new Map(initialDB);
 
 export const getBooks = () => {
   const books = [];
@@ -25,6 +19,10 @@ export const getBooks = () => {
 export const getBookById = (id: string) => {
   const book = booksDB.get(id);
 
+  if (book!) {
+    throw new Error(`We dont have a book with id : ${id}`);
+  }
+
   return { id, ...book };
 };
 
@@ -41,4 +39,14 @@ export const removeBook = (id) => {
   booksDB.delete(id);
 
   return { id, ...expectedBook };
+};
+
+export const updateBook = (id: string, recievedBook: IBook) => {
+  const previousBook = booksDB.get(id);
+  const expectedBook = { ...previousBook, ...recievedBook };
+  removeBook(id);
+  booksDB.set(id, expectedBook);
+  const savedBook = booksDB.get(id);
+
+  return { id, ...savedBook };
 };
