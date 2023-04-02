@@ -3,10 +3,7 @@ import express from 'express';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { resolvers } from './resolvers';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
-import {
-  addResolversToSchema,
-  makeExecutableSchema,
-} from '@graphql-tools/schema';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import { join } from 'node:path';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import http from 'http';
@@ -21,7 +18,6 @@ const typeDefs = loadSchemaSync(join(__dirname, '/types.graphql'), {
 });
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
-//const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
 // Create an Express app and HTTP server; we will attach both the WebSocket
 // server and the ApolloServer to this HTTP server.
