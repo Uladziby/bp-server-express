@@ -7,5 +7,3 @@ export const subscriptions = {
       pubSub.asyncIterator([events.BOOK_ADDED, events.BOOK_UPDATED]),
   },
 };
-//add user login user logout all user events we can add
-// add cookies and connect mongoDb

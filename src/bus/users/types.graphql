@@ -1,5 +1,14 @@
-type User {
-  name: String!
+input UserLoginInput {
   email: String!
-  password: String
+  password: String!
+}
+
+type User {
+  _id: String
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  accessToken: String!
+  refreshToken: String!
 }

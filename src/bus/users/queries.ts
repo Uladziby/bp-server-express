@@ -1,15 +1,14 @@
-import { db } from './db';
+import { UserModel } from './model/db';
 
 export const queries = {
-  users: (_, __, ctx) => {
-    if (ctx.req.username) {
-      return db;
-    } else {
-      return db.map(({ name, email }) => ({
-        name,
+  users: async () => {
+    const users = await UserModel.find().then((users) =>
+      users.map(({ email, password }) => ({
         email,
-        password: null
-      }));
-    }
-  }
+        password,
+      })),
+    );
+
+    return users;
+  },
 };
