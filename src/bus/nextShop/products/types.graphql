@@ -1,0 +1,37 @@
+type Product {
+  description: String
+  price: Int!
+  name: String!
+  rating: Float!
+  slug: String!
+  images: [Image!]!
+  reviews: [Review!]!
+}
+
+type Image {
+  url: String
+  alt: String
+}
+
+type Review {
+  createdAt: String!
+  description: String!
+  email: String!
+  author: String!
+  id: String!
+  rating: Int
+  title: String!
+  updatedAt: String!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum ProductSortBy {
+  PRICE
+  RATING
+  NAME
+  DEFAULT
+}

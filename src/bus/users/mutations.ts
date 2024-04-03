@@ -18,8 +18,10 @@ export const mutations = {
 
     return user;
   },
-  login: async (_, { loginData }, { req }) => {
+  loginOld: async (_, { loginData }, { req }) => {
     const { email, password } = loginData;
+
+    console.log('loginData', loginData);
 
     const user = await UserModel.findOne({ email }).then((user: IUser) => {
       return user;
@@ -54,6 +56,41 @@ export const mutations = {
 
     return updatedUser;
   },
+  login: async (_, { loginData }) => {
+    console.dir('getTokens');
+
+    const { email, password } = loginData;
+
+    const user = await UserModel.findOne({ email }).then((user: IUser) => {
+      return user;
+    });
+
+    if (!user) {
+      throw new AuthenticationError(USER_NOT_FOUND);
+    }
+
+    const isUserValid = user.password === password;
+
+    if (!isUserValid) {
+      throw new AuthenticationError(INCORRECT_PASSWORD);
+    }
+
+    const { accessToken, refreshToken } = generateTokens(user._id, user.email);
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      user._id,
+      {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      },
+      { new: true },
+    );
+
+    console.dir(updatedUser);
+
+    return { accessToken, refreshToken };
+  },
+
   logout: async (_, { id }) => {
     const user = await UserModel.findByIdAndUpdate(id, {
       accessToken: '',

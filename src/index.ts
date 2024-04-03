@@ -9,7 +9,11 @@ import mongoose from 'mongoose';
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 const corsOptions = {
-  origin: ['ws://localhost:4000', 'https://studio.apollographql.com'],
+  origin: [
+    'ws://localhost:4000',
+    'https://studio.apollographql.com',
+    'http://localhost:3000',
+  ],
 };
 
 /* clientMongo

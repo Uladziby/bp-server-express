@@ -1,10 +1,19 @@
 #import "../bus/books/types.graphql"
 #import "../bus/users/types.graphql"
+#import "../bus/nextShop/products/types.graphql"
 
 type Query {
   books: [Book!]!
   book(id: ID!): Book
   users: [User!]!
+  getTokens(loginData: UserLoginInput!): PairsOfTokens
+  products(
+    order: SortDirection! = ASC
+    orderBy: ProductSortBy! = DEFAULT
+    search: String
+    skip: Int! = 0
+    take: Int! = 10
+  ): [Product!]!
 }
 
 type Mutation {
@@ -17,7 +26,8 @@ type Mutation {
     email: String!
     password: String!
   ): User!
-  login(loginData: UserLoginInput!): User!
+  login(loginData: UserLoginInput!): PairsOfTokens
+  loginOld(loginData: UserLoginInput!): User!
   logout(id: ID!): User!
 }
 

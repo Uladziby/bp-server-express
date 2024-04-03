@@ -1,9 +1,10 @@
-import { IBook } from '../../../types';
+import { BooksDBType, IBook } from '../../../types';
+import { BookType } from '../queries';
 import { booksDB } from './db';
 import { v4 as uuidv4 } from 'uuid';
 
 export const getBooks = () => {
-  const books = [];
+  const books: BookType[] = [];
 
   booksDB.forEach((value, key) => {
     const currentBook = {
@@ -16,7 +17,7 @@ export const getBooks = () => {
   return books;
 };
 
-export const getBookById = (id: string) => {
+export const getBookById = (id: string): BookType => {
   const book = booksDB.get(id);
 
   if (book!) {

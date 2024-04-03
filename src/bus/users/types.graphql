@@ -12,3 +12,8 @@ type User {
   accessToken: String!
   refreshToken: String!
 }
+
+type PairsOfTokens {
+  accessToken: String!
+  refreshToken: String!
+}

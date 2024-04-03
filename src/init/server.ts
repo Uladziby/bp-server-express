@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
-import express from 'express';
+import express, { Express } from 'express';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { resolvers } from './resolvers';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
@@ -10,18 +10,13 @@ import http from 'http';
 import { WebSocketServer } from 'ws';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 
-// Create the schema, which will be used separately by ApolloServer and
-// the WebSocket server.
-
 const typeDefs = loadSchemaSync(join(__dirname, '/types.graphql'), {
   loaders: [new GraphQLFileLoader()],
 });
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// Create an Express app and HTTP server; we will attach both the WebSocket
-// server and the ApolloServer to this HTTP server.
-const app = express();
+const app: Express = express();
 const httpServer = http.createServer(app);
 
 // Create our WebSocket server using the HTTP server we just set up.
@@ -31,6 +26,8 @@ const wsServer = new WebSocketServer({ server: httpServer, path: '/graphql' });
 const serverCleanup = useServer({ schema }, wsServer);
 
 const server = new ApolloServer({
+  typeDefs: typeDefs,
+  resolvers: resolvers,
   schema: schema,
   plugins: [
     // Proper shutdown for the HTTP server.
