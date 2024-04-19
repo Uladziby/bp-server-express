@@ -3,7 +3,7 @@ import { AuthenticationError } from 'apollo-server-express';
 import { UserModel } from './model/db';
 import { pubSub } from '../../init/pubSub';
 import { IUser } from './types';
-import { INCORRECT_PASSWORD, USER_NOT_FOUND } from '../../constants';
+import { INCORRECT_PASSWORD, USER_NOT_FOUND } from '../../utils/constants';
 import { generateTokens } from '../auth/generateTokens';
 
 export const USER_SECRET = 'mysecretkey123';

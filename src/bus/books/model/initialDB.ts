@@ -1,4 +1,4 @@
-import { BooksDBType } from '../../../types';
+import { BooksDBType } from '../../../utils/types';
 
 export const initialDB: BooksDBType[] = [
   ['id-1', { title: 'Harrty Potter', author: 'Rowling' }],

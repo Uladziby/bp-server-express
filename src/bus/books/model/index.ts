@@ -1,4 +1,4 @@
-import { BooksDBType, IBook } from '../../../types';
+import { BooksDBType, IBook } from '../../../utils/types';
 import { BookType } from '../queries';
 import { booksDB } from './db';
 import { v4 as uuidv4 } from 'uuid';

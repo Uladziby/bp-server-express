@@ -1,0 +1,25 @@
+type CollectionsList {
+  data: [Collection!]!
+  meta: MetaList
+}
+
+type Collection {
+  _id: ID!
+  id: ID!
+  slug: String!
+  name: String!
+  description: String!
+  image: Image!
+}
+
+type Image {
+  url: String!
+  alt: String!
+  width: Int!
+  height: Int!
+}
+
+type MetaList {
+  total: Int!
+  count: Int!
+}

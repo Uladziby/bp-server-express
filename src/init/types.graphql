@@ -1,6 +1,9 @@
 #import "../bus/books/types.graphql"
 #import "../bus/users/types.graphql"
 #import "../bus/nextShop/products/types.graphql"
+#import "../bus/nextShop/categories/types.graphql"
+#import "../bus/nextShop/collections/types.graphql"
+#import "../bus/nextShop/cart/types.graphql"
 
 type Query {
   books: [Book!]!
@@ -13,7 +16,15 @@ type Query {
     search: String
     skip: Int! = 0
     take: Int! = 10
-  ): [Product!]!
+  ): ProductList!
+  product(id: ID!): Product
+  categories(skip: Int! = 0, take: Int! = 10): CategoryList!
+  reviews(id: ID!): [Review!]!
+  collections(skip: Int! = 0, take: Int! = 10): CollectionsList!
+  collectionProducts(slug: String!): ProductList!
+  collection(slug: String!): Collection!
+  cart(cartId: ID!): Cart!
+  cartProductsById(cartId: ID!): [CartProductsDetails!]!
 }
 
 type Mutation {
@@ -29,6 +40,17 @@ type Mutation {
   login(loginData: UserLoginInput!): PairsOfTokens
   loginOld(loginData: UserLoginInput!): User!
   logout(id: ID!): User!
+  createReview(
+    author: String!
+    description: String!
+    email: String!
+    productId: ID!
+    rating: Int!
+    title: String!
+  ): String!
+  cartCreate(input: CartCreateInput!): Cart!
+  cartChangeItemQuantity(cartId: ID!, productId: ID!, quantity: Int!): Cart!
+  cartAddItem(cartId: ID!, input: CartCreateInput): Cart!
 }
 
 type Subscription {

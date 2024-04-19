@@ -1,0 +1,31 @@
+type Cart {
+  _id: String!
+  products: [CartItem!]!
+}
+
+type CartItem {
+  quantity: Int
+  productId: String
+}
+
+input CartCreateInput {
+  productId: String
+  quantity: Int
+}
+
+type Image {
+  url: String
+  alt: String
+}
+
+type CartProductsDetails {
+  description: String
+  id: ID!
+  price: Int!
+  name: String!
+  slug: String!
+  collection: String!
+  images: [Image!]!
+  quantity: Int
+  _id: String
+}

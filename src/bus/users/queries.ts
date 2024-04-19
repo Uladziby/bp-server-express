@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server-express';
 import { UserModel } from './model/db';
-import { USER_NOT_FOUND, INCORRECT_PASSWORD } from '../../constants';
+import { USER_NOT_FOUND, INCORRECT_PASSWORD } from '../../utils/constants';
 import { generateTokens } from '../auth/generateTokens';
 import { IUser } from './types';
 

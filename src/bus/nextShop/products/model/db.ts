@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const ProductsSchema = new mongoose.Schema({
@@ -6,9 +7,16 @@ const ProductsSchema = new mongoose.Schema({
   name: String,
   rating: Number,
   slug: String,
+  _id: ObjectId,
+  collection: String,
+  category: {
+    slug: String,
+    name: String,
+  },
   images: [
     {
       url: String,
+      alt: String,
     },
   ],
   reviews: [

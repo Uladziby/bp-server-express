@@ -1,0 +1,21 @@
+type CategoryList {
+  data: [Category!]!
+  meta: MetaList
+}
+
+type Category {
+  id: ID!
+  slug: String!
+  description: String!
+  products: [CategoryProduct!]!
+}
+
+type CategoryProduct {
+  id: ID!
+  slug: String!
+}
+
+type MetaList {
+  total: Int!
+  count: Int!
+}

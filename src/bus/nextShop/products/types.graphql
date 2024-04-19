@@ -1,9 +1,12 @@
 type Product {
   description: String
+  id: ID!
   price: Int!
   name: String!
   rating: Float!
   slug: String!
+  collection: String!
+  category: ProductCategory!
   images: [Image!]!
   reviews: [Review!]!
 }
@@ -18,10 +21,25 @@ type Review {
   description: String!
   email: String!
   author: String!
-  id: String!
+  _id: String!
   rating: Int
   title: String!
   updatedAt: String!
+}
+
+type ProductList {
+  data: [Product!]!
+  meta: MetaList
+}
+
+type MetaList {
+  total: Int!
+  count: Int!
+}
+
+type ProductCategory {
+  name: String!
+  slug: String!
 }
 
 enum SortDirection {
@@ -34,4 +52,13 @@ enum ProductSortBy {
   RATING
   NAME
   DEFAULT
+}
+
+type ReviewCreate {
+  author: String!
+  description: String!
+  email: String!
+  productId: ID!
+  rating: Int!
+  title: String!
 }
