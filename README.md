@@ -28,7 +28,6 @@ A boilerplate server setup using Express.js for building GraphQL APIs with Mongo
 Clone the repository and install dependencies using npm or yarn:
 npm install
 
-yarn install
 ##Usage
 To start the server in development mode:
 
