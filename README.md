@@ -16,11 +16,6 @@
 16. Babel
 17. Pnpm
 
-
-markdown
-Copy code
-# bp-server-express
-
 ## Description
 A boilerplate server setup using Express.js for building GraphQL APIs with MongoDB integration.
 
@@ -28,7 +23,7 @@ A boilerplate server setup using Express.js for building GraphQL APIs with Mongo
 Clone the repository and install dependencies using npm or yarn:
 npm install
 
-##Usage
+## Usage
 To start the server in development mode:
 
 npm run dev
