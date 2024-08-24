@@ -19,3 +19,30 @@ type MetaList {
   total: Int!
   count: Int!
 }
+
+type ProductList {
+  data: [Product!]!
+  meta: MetaList
+}
+
+type Product {
+  description: String
+  id: ID!
+  price: Int!
+  name: String!
+  rating: Float!
+  slug: String!
+  collection: String!
+  category: ProductCategory!
+  images: [Image!]!
+}
+
+type ProductCategory {
+  name: String!
+  slug: String!
+}
+
+type Image {
+  url: String
+  alt: String
+}

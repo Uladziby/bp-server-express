@@ -9,7 +9,7 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    /* "baseUrl": "./", */
+    "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -20,8 +20,19 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["src/*"]
+    },
+    "plugins": [
+      /* Transform paths in output .js files */
+      {
+        "transform": "typescript-transform-paths"
+      },
+      /* Transform paths in output .d.ts files */
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
   },
 
   "include": ["src/**/*.ts", ".graphqlrc.ts"],

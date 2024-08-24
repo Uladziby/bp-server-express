@@ -41,6 +41,30 @@ export type CartItem = {
   quantity?: Maybe<Scalars['Int']['output']>;
 };
 
+export type CartProductsDetails = {
+  _id?: Maybe<Scalars['String']['output']>;
+  collection: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  images: Array<Image>;
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  quantity?: Maybe<Scalars['Int']['output']>;
+  slug: Scalars['String']['output'];
+};
+
+export type CartResponseForStripe = {
+  name: Scalars['String']['output'];
+  price: Scalars['Int']['output'];
+  productId: Scalars['String']['output'];
+  quantity: Scalars['Int']['output'];
+};
+
+export type CartResponseMessage = {
+  cartMessage?: Maybe<Scalars['String']['output']>;
+  itemMessage?: Maybe<Scalars['String']['output']>;
+};
+
 export type Category = {
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
@@ -89,6 +113,8 @@ export type Mutation = {
   cartAddItem: Cart;
   cartChangeItemQuantity: Cart;
   cartCreate: Cart;
+  cartRemoveItem: CartResponseMessage;
+  createProduct: Scalars['String']['output'];
   createReview: Scalars['String']['output'];
   login?: Maybe<PairsOfTokens>;
   loginOld: User;
@@ -119,6 +145,17 @@ export type MutationCartChangeItemQuantityArgs = {
 
 export type MutationCartCreateArgs = {
   input: CartCreateInput;
+};
+
+
+export type MutationCartRemoveItemArgs = {
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+};
+
+
+export type MutationCreateProductArgs = {
+  input: ProductCreateInput;
 };
 
 
@@ -188,6 +225,15 @@ export type ProductCategory = {
   slug: Scalars['String']['output'];
 };
 
+export type ProductCreateInput = {
+  category: Scalars['String']['input'];
+  collection: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  image: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  price: Scalars['Int']['input'];
+};
+
 export type ProductList = {
   data: Array<Product>;
   meta?: Maybe<MetaList>;
@@ -203,7 +249,10 @@ export type Query = {
   book?: Maybe<Book>;
   books: Array<Book>;
   cart: Cart;
+  cartDataProductsForStripe: Array<CartResponseForStripe>;
+  cartProductsById: Array<CartProductsDetails>;
   categories: CategoryList;
+  category: ProductList;
   collection: Collection;
   collectionProducts: ProductList;
   collections: CollectionsList;
@@ -225,9 +274,24 @@ export type QueryCartArgs = {
 };
 
 
+export type QueryCartDataProductsForStripeArgs = {
+  cartId: Scalars['ID']['input'];
+};
+
+
+export type QueryCartProductsByIdArgs = {
+  cartId: Scalars['ID']['input'];
+};
+
+
 export type QueryCategoriesArgs = {
   skip?: Scalars['Int']['input'];
   take?: Scalars['Int']['input'];
+};
+
+
+export type QueryCategoryArgs = {
+  slug: Scalars['String']['input'];
 };
 
 

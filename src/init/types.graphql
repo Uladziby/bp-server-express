@@ -19,12 +19,14 @@ type Query {
   ): ProductList!
   product(id: ID!): Product
   categories(skip: Int! = 0, take: Int! = 10): CategoryList!
+  category(slug: String!): ProductList!
   reviews(id: ID!): [Review!]!
   collections(skip: Int! = 0, take: Int! = 10): CollectionsList!
   collectionProducts(slug: String!): ProductList!
   collection(slug: String!): Collection!
   cart(cartId: ID!): Cart!
   cartProductsById(cartId: ID!): [CartProductsDetails!]!
+  cartDataProductsForStripe(cartId: ID!): [CartResponseForStripe!]!
 }
 
 type Mutation {
@@ -48,9 +50,11 @@ type Mutation {
     rating: Int!
     title: String!
   ): String!
+  createProduct(input: ProductCreateInput!): String!
   cartCreate(input: CartCreateInput!): Cart!
   cartChangeItemQuantity(cartId: ID!, productId: ID!, quantity: Int!): Cart!
   cartAddItem(cartId: ID!, input: CartCreateInput): Cart!
+  cartRemoveItem(cartId: ID!, productId: ID!): CartResponseMessage!
 }
 
 type Subscription {

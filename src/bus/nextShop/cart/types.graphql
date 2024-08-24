@@ -29,3 +29,15 @@ type CartProductsDetails {
   quantity: Int
   _id: String
 }
+
+type CartResponseMessage {
+  itemMessage: String
+  cartMessage: String
+}
+
+type CartResponseForStripe {
+  name: String!
+  price: Int!
+  productId: String!
+  quantity: Int!
+}

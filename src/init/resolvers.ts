@@ -8,6 +8,7 @@ import { queries as usersQueries } from '../bus/users/queries';
 import { queries as productsQueries } from '../bus/nextShop/products/queries';
 import { queries as collectionsQueries } from '../bus/nextShop/collections/queries';
 import { queries as cartQueries } from '../bus/nextShop/cart/queries';
+import { queries as categoriesQuery } from '../bus/nextShop/categories/queries';
 
 import { subscriptions as userSubscription } from '../bus/users/subscriptions';
 import { subscriptions as bookSubscription } from '../bus/books/subscriptions';
@@ -19,6 +20,7 @@ export const resolvers = {
     ...productsQueries,
     ...cartQueries,
     ...collectionsQueries,
+    ...categoriesQuery,
   },
   Mutation: {
     ...bookMutations,

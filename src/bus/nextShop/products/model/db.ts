@@ -1,13 +1,12 @@
 import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
-const ProductsSchema = new mongoose.Schema({
+export const ProductsSchema = new mongoose.Schema({
   description: String,
   price: Number,
   name: String,
   rating: Number,
   slug: String,
-  _id: ObjectId,
   collection: String,
   category: {
     slug: String,
@@ -33,6 +32,6 @@ const ProductsSchema = new mongoose.Schema({
   ],
 });
 
-export const ProductsModel = mongoose.model('products', ProductsSchema);
+export const ProductsModel = mongoose.model('products_models', ProductsSchema);
 
 export type ProductsModelType = typeof ProductsModel;

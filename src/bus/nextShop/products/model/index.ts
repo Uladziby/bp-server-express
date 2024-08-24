@@ -1,8 +1,10 @@
-import { REVIEW_ADDED } from './../../../../utils/constants';
+import { PRODUCT_CREATED, REVIEW_ADDED } from './../../../../utils/constants';
 import { ProductsModel } from './db';
 import { BSON } from 'mongodb';
 import {
   MutationCreateReviewArgs,
+  Product,
+  ProductCreateInput,
   QueryProductsArgs,
   Review,
 } from '@/gql/graphql';
@@ -37,7 +39,7 @@ export const getProducts = async ({
     );
 
   const total = await ProductsModel.countDocuments();
-
+  console.log(products, 'products');
   return { data: products, meta: { total, count: products.length } };
 };
 
@@ -81,11 +83,51 @@ export const createReview = async ({
     updatedAt: new Date().toISOString(),
   };
 
-  const result = await ProductsModel.updateOne(
+  await ProductsModel.updateOne(
     { _id: nid },
     { $push: { reviews: newReview } },
   ).catch((e) => {
     console.log('createReview error', e);
   });
   return REVIEW_ADDED;
+};
+
+export const createProduct = async ({
+  input,
+}: {
+  input: ProductCreateInput;
+}) => {
+  const { name, price, image, category, description, collection } = input;
+
+  const newProduct: Product = {
+    description,
+    name,
+    category: {
+      slug: category.toLocaleLowerCase(),
+      name: category,
+    },
+    collection,
+    id: '',
+    images: [
+      {
+        url: image,
+        alt: name,
+        height: 300,
+        width: 200,
+      },
+    ],
+    rating: 0,
+    reviews: [],
+    slug: `${name}-${collection}`,
+    price,
+  };
+
+  await ProductsModel.create(newProduct)
+    .then((res) => {
+      console.log('createProduct', res);
+    })
+    .catch((e) => {
+      console.log('createProduct error', e);
+    });
+  return PRODUCT_CREATED;
 };

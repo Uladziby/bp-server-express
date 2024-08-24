@@ -62,3 +62,12 @@ type ReviewCreate {
   rating: Int!
   title: String!
 }
+
+input ProductCreateInput {
+  description: String!
+  name: String!
+  price: Int!
+  image: String!
+  category: String!
+  collection: String!
+}

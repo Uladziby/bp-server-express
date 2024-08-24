@@ -1,18 +1,8 @@
-import { CategoriesModel } from '@/bus/nextShop/categories/schema';
+import { CategoriesModel } from '../../../bus/nextShop/categories/schema';
+import { ProductsModel } from '../../../bus/nextShop/products/model/db';
 import { PipelineStage } from 'mongoose';
 
 export const getCategories = async ({ take, skip }) => {
-  /* 
-    const products = await ProductsModel.find()
-      .skip(skip)
-      .limit(take)
-      .sort({ [parsedOrderBy]: parsedOrder })
-      .then((data) => {
-        console.log('getALLProducts', data[0]._id);
-        [...data, { id: data.id }];
-        return data;
-      }); */
-
   const pipeline: PipelineStage[] = [
     { $skip: skip },
     { $limit: take },
@@ -21,7 +11,21 @@ export const getCategories = async ({ take, skip }) => {
   ];
 
   const products = await CategoriesModel.aggregate(pipeline);
+
   const total = await CategoriesModel.countDocuments();
 
   return { data: products, meta: { total, count: products.length } };
+};
+
+export const getCategoryBySlug = async ({ slug }) => {
+  const response = await ProductsModel.find({
+    'category.slug': `${slug}`,
+  });
+
+  console.log(slug, 'slug', response, 'response');
+
+  return {
+    data: response,
+    meta: { total: response.length, count: response.length },
+  };
 };
